@@ -1,0 +1,13 @@
+body {
+    background: black;
+    color: azure;
+}
+
+.content {
+    padding-top: 20px;
+    margin-left: 350px;
+    margin-right: 350px;
+}
+.form-control-custom{
+    width: 100px;
+}

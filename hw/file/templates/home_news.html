@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="content">
+        <form action="/news" method="get">
+            <input class="form-control" value="{{ word }}" type="text" name="search" placeholder="enter a search word">
+            <br/>
+            <input class="btn btn-success" type="submit" value="search">
+        </form>
+        <br/>
+        {% if count == 0 %}
+            <h6>with your search word didnt fine anything</h6>
+        {% endif %}
+        {% for i in news %}
+            {% if i.image %}
+                <img src="{{ i.image.url }}" style="width: 100px">
+            {% endif %}
+            <a href="/news/{{ i.id }}/"><h5>Title - {{ i.title }}</h5></a>
+            <p>Text - {{ i.text }}</p>
+            <p>Created - {{ i.created_at }}</p>
+            <p>Updated - {{ i.updated_at }}</p>
+            <hr>
+        {% endfor %}
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item {% if not page_obj.has_previous %} disabled {% endif %}"><a class="page-link"
+                                                                                                 href="/news/?search={{ word }}&page=
+                                                                                                         {% if  page_obj.has_previous %}{{ page_obj.previous_page_number }}{% endif %}">Previous</a>
+                </li>
+                {% for page in page_list %}
+                    {% if page_obj.number == p %}
+                       <li class="page-item"><a class="page-link" href="?page={{ page }}">1</a>
+                       <li class="page-item"> <a class="page-link" href="?page{{ p }}"> {{ p }}</a>
+                           </li>
+                    {% else %}
+                    <li class="page-item">
+                       <li class="page-item"> <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                    </li>
+                    <li class="page-item "><a class="page-link"
+                                                                                                href="/news/search={{ word }}&page={{ page }}">{{ page }}</a></li>
+                {% endif %}
+                {% endfor %}
+                <li class="page-item {% if not page_obj.has_next %} disabled {% endif %}"><a class="page-link"
+                                                                                             href="/news/?search={{ word }}&page=
+                                                                                                     {% if  page_obj.has_next %}{{ page_obj.next_page_number }}{% endif %}">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+{% endblock %}

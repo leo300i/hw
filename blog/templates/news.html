@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="(% static 'css/index.css' %)" type="text/css" rel="stylesheet" />
+</head>
+<body>
+<nav class="navbar  navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <img src="{% static 'img/download.png' %}" alt="" width="30" height="24"
+                 class="d-inline-block align-text-top">
+            Blog
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">Main</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/news/">News</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<img style="width: 100px; height: 100px" src="{% static 'img/lp1.jpg' %}">
+<div class="content">
+    <form action="/news/" method="get">
+        <input type="text" name="search" placeholder="enter a search word">
+        <input type="submit" value="search">
+    </form>
+    {% for i  in news %}
+    <a href="/news/{{ i.id }}"><h5>{{ i.title }}</h5></a>
+    <p>{{ i.text }}</p>
+    <p>Created{{ i.create_at }}</p>
+    <p>Updated{{ i.update_at }}</p>
+    <hr>
+{% endfor %}
+</div>
+</body>
+</html>

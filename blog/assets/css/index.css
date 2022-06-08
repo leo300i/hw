@@ -1,0 +1,9 @@
+body{
+    background: black;
+    color: azure;
+}
+
+.content{
+    margin-left: 350px;
+    margin-right: 350px;
+}

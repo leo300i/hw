@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="content">
+        <form action="/news/" method="get">
+            <label>
+                <input class="form-control" value="{{ word }}" type="text" name="search" placeholder="enter a search word">
+            </label>
+            <br/>
+            <input class="btn btn-success" type="submit" value="search">
+        </form>
+        <br/>
+        {% if count == 0 %}
+            <h6>With your search word didnt find anything</h6>
+        {% endif %}
+        {% for i in news %}
+            {% if i.image %}
+                <img src="{{ i.image.url }}" style="width: 100px" alt="">
+            {% endif %}
+            <a href="/news/{{ i.id }}/"><h5>Title - {{ i.title }}</h5></a>
+            <p>Text - {{ i.text }}</p>
+            <p>Created - {{ i.created_at }}</p>
+            <p>Updated - {{ i.updated_at }}</p>
+            <hr>
+        {% endfor %}
+{% for page in page_list %}
+    {# Each "contact" is a Contact model object. #}
+    {{ page.full_name|upper }}<br>
+    {% endfor %}
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+{% endblock %}
+</div>
